@@ -37,27 +37,19 @@ class RandomPatchProjection:
     def __init__(self):
         start = 16 * 16
         end = self.cell_reduction_dimension
-        midway = (start + end) // 2
-        my_local_rng = torch.Generator(device="cuda" if torch.cuda.is_available() else "cpu")
+        my_local_rng = torch.Generator(
+            device="cuda" if torch.cuda.is_available() else "cpu"
+        )
         my_local_rng.manual_seed(_project_parameters["random_seed"])
         step1 = nn.Linear(
             start,
-            midway,
-            bias=False,
-            device="cuda" if torch.cuda.is_available() else "cpu",
-        )
-        step2 = nn.Linear(
-            midway,
             end,
             bias=False,
             device="cuda" if torch.cuda.is_available() else "cpu",
         )
-        nn.init.kaiming_normal(step1.weight, generator=my_local_rng)
-        nn.init.kaiming_normal(step2.weight, generator=my_local_rng)
+        nn.init.kaiming_normal_(step1.weight, generator=my_local_rng)
         self.random_projection = nn.Sequential(
             step1,
-            nn.Tanh(),
-            step2,
         )
 
     def _embed_single(self, item: Union[np.ndarray, Image]) -> torch.Tensor:
@@ -190,7 +182,9 @@ class HuggingFaceEmbeddingEngine(ABC):
     @staticmethod
     def embed(
         engine_class: Type["HuggingFaceEmbeddingEngine"],
-        model_kind: str, model_name: str, items: List[_EmbeddingInput]
+        model_kind: str,
+        model_name: str,
+        items: List[_EmbeddingInput],
     ) -> torch.Tensor:
         """
         Generate embeddings for a list of items using the specified model.
@@ -207,8 +201,8 @@ class HuggingFaceEmbeddingEngine(ABC):
         :rtype: torch.Tensor
         """
         if not HuggingFaceEmbeddingEngine.is_loaded(model_name=model_name):
-            HuggingFaceEmbeddingEngine.start(engine_class=engine_class,
-                model_kind=model_kind, model_name=model_name
+            HuggingFaceEmbeddingEngine.start(
+                engine_class=engine_class, model_kind=model_kind, model_name=model_name
             )
         if _project_parameters["debug_skip_lm"]:
             return torch.randn(len(items), HuggingFaceEmbeddingEngine.random_embed_size)
@@ -416,7 +410,8 @@ class EmbeddingModel(ABC):
         :return: Tensor containing the embeddings
         :rtype: torch.Tensor
         """
-        return self._ENGINE.embed(engine_class=self._ENGINE,
+        return self._ENGINE.embed(
+            engine_class=self._ENGINE,
             model_kind=self._model_kind,
             model_name=self._model_name,
             items=items,
