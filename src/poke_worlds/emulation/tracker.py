@@ -11,7 +11,7 @@ from poke_worlds.utils import (
 
 
 import numpy as np
-from typing import Optional, Type, Dict, Any, Tuple, List
+from typing import Optional, Type, Dict, Any, Tuple, List, Set
 
 from abc import ABC, abstractmethod
 
@@ -365,6 +365,151 @@ class OCRegionMetric(MetricGroup, ABC):
         pass
 
 
+class SubGoal(ABC):
+    """
+    Abstract class representing a subgoal for tracking progress towards a test goal. These are intermediate states that must be achieved on the way to the final test goal.
+    By convention, the task goal state itself is *not* considered a subgoal, but rather the final goal that the subgoals lead towards.
+    """
+
+    NAME = "placeholder"
+    """ Name of the subgoal. """
+
+    def __init__(self):
+        if self.NAME == "placeholder":
+            log_error(
+                "Subclasses of SubGoal must set a unique NAME class variable.",
+            )
+        self.completed = False
+
+    def check_completed(self, frames: np.ndarray, parser: StateParser) -> bool:
+        """
+        Checks whether the subgoal has been completed based on the given frames and state parser.
+
+        Args:
+            frames (np.ndarray): The stack of frames to check for subgoal completion.
+            parser (StateParser): The state parser to use for checking subgoal completion.
+        Returns:
+            bool: True if the subgoal is completed, False otherwise.
+        """
+        for frame in frames:
+            if self._check_completed(frame, parser):
+                return True
+        return False
+
+    @abstractmethod
+    def _check_completed(self, frame: np.ndarray, parser: StateParser) -> bool:
+        """
+        Checks whether the subgoal has been completed based on a single frame and the state parser.
+
+        Args:
+            frames (np.ndarray): A single frame to check for subgoal completion.
+            parser (StateParser): The state parser to use for checking subgoal completion.
+        Returns:
+            bool: True if the subgoal is completed, False otherwise.
+        """
+        pass
+
+
+class DummySubGoal(SubGoal):
+    """
+    A dummy subgoal that is never completed. Useful for testing.
+    """
+
+    NAME = "dummy_subgoal"
+
+    def _check_completed(self, frame: np.ndarray, parser: StateParser) -> bool:
+        return False
+
+
+class SubGoalMetric(MetricGroup, ABC):
+    """
+    Tracks subgoal based progress towards a specific test goal.
+    Subgoals are always sequential, i.e. it is impossible to complete subgoal n+1 without completing subgoal n first.
+
+    Reports:
+    - `all`: A list of the names of all subgoals being tracked, regardless of completion status.
+    - `completed`: A list of the names of the subgoals that have been completed.
+
+    Final Reports:
+    - `reached_subgoals`: List of subgoals that were reached at any point during any episode.
+    """
+
+    NAME = "subgoals"
+    SUBGOALS: List[SubGoal] = []
+    """ List of SubGoal classes representing the subgoals to be tracked. These should be defined in child classes. """
+
+    def start(self):
+        if self.NAME != "subgoals":
+            log_error(
+                f"SubGoalMetric NAME must be 'subgoals', got '{self.NAME}'.",
+                self._parameters,
+            )
+        if len(self.SUBGOALS) == 0:
+            log_error(
+                "SubGoalMetric requires at least one subgoal to be defined in the SUBGOALS class variable.",
+                self._parameters,
+            )
+        self._subgoals: List[SubGoal] = []
+        """ List of SubGoal instances representing the subgoals being tracked. """
+        for subgoal_class in self.SUBGOALS:
+            subgoal_instance: SubGoal = subgoal_class()
+            self._subgoals.append(subgoal_instance)
+        self._reached_subgoals: Set[str] = set()
+        """ Set of subgoals that were reached at any point during any episode. """
+        super().start()
+
+    def close(self):
+        pass
+
+    def reset(self, first=False):
+        if not first:
+            for subgoal in self._subgoals:
+                if subgoal.completed:
+                    self._reached_subgoals.add(subgoal.NAME)
+        for subgoal in self._subgoals:
+            subgoal.completed = False
+
+    def step(self, current_frame: np.ndarray, recent_frames: Optional[np.ndarray]):
+        all_frames = None
+        if recent_frames is not None:
+            all_frames = recent_frames  # Current frame is included in recent frames
+        else:
+            all_frames = np.array([current_frame])
+        for subgoal in self._subgoals:
+            if not subgoal.completed:
+                completed = subgoal.check_completed(all_frames, self.state_parser)
+                subgoal.completed = completed
+
+    def report(self):
+        """
+        Reports the names of the subgoals being tracked and which ones have been completed.
+        Returns:
+            dict: A dictionary containing the list of all subgoals and the list of completed subgoals.
+        """
+        return {
+            "all": [subgoal.NAME for subgoal in self._subgoals],
+            "completed": [
+                subgoal.NAME for subgoal in self._subgoals if subgoal.completed
+            ],
+        }
+
+    def report_final(self):
+        """
+        Reports the names of the subgoals that were reached at any point during any episode.
+        Returns:
+            dict: A dictionary containing the list of reached subgoals.
+        """
+        return {"reached_subgoals": list(self._reached_subgoals)}
+
+
+class DummySubGoalMetric(SubGoalMetric):
+    """
+    A dummy SubGoalMetric that tracks a single DummySubGoal. Useful for testing.
+    """
+
+    SUBGOALS = [DummySubGoal]
+
+
 class TerminationTruncationMetric(MetricGroup, ABC):
     """
     Tracks whether the environment was terminated or truncated.
@@ -381,6 +526,11 @@ class TerminationTruncationMetric(MetricGroup, ABC):
 
     def start(self):
         super().start()
+        if self.NAME != "termination_truncation":
+            log_error(
+                f"TerminationTruncationMetric NAME must be 'termination_truncation', got '{self.NAME}'.",
+                self._parameters,
+            )
         self.episode_end_reason = []
         """ List of reasons for episode: termination or truncation or None (None will occur only if there is a bug that leads to a premature reset). """
         self.terminated = False
@@ -507,6 +657,9 @@ class StateTracker:
     TERMINATION_TRUNCATION_METRIC: Type[TerminationTruncationMetric] = None
     """ The TerminationTruncationMetric class to use for tracking termination and truncation. If None, no such metric will be tracked. """
 
+    SUBGOAL_METRIC: Type[SubGoalMetric] = None
+    """ The SubGoalMetric class to use for tracking subgoal progress. If None, no such metric will be tracked. """
+
     def __init__(
         self,
         state_parser: StateParser,
@@ -556,6 +709,13 @@ class StateTracker:
                     self._parameters,
                 )
             self.metric_classes.append(self.TERMINATION_TRUNCATION_METRIC)
+        if self.SUBGOAL_METRIC is not None:
+            if not issubclass(self.SUBGOAL_METRIC, SubGoalMetric):
+                log_error(
+                    "SUBGOAL_METRIC must be a subclass of SubGoalMetric.",
+                    self._parameters,
+                )
+            self.metric_classes.append(self.SUBGOAL_METRIC)
 
     def validate(self):
         """
@@ -672,6 +832,11 @@ class TestTrackerMixin:
         if self.TERMINATION_TRUNCATION_METRIC is None:
             log_error(
                 "TestTrackerMixin requires a TerminationTruncationMetric to be set as TERMINATION_TRUNCATION_METRIC.",
+                self._parameters,
+            )
+        if self.SUBGOAL_METRIC is None:
+            log_error(
+                "TestTrackerMixin requires a SubGoalMetric to be set as SUBGOAL_METRIC.",
                 self._parameters,
             )
 

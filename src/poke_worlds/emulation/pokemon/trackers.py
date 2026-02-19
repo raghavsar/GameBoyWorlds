@@ -28,6 +28,7 @@ from poke_worlds.utils import log_info
 from poke_worlds.emulation.tracker import (
     StateTracker,
     TestTrackerMixin,
+    DummySubGoalMetric,
 )
 from poke_worlds.emulation.pokemon.parsers import (
     AgentState,
@@ -82,6 +83,7 @@ class PokemonTestTracker(TestTrackerMixin, PokemonOCRTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = PokemonCenterTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
 
 
 class PokemonRedCenterTestTracker(PokemonTestTracker):
@@ -90,6 +92,7 @@ class PokemonRedCenterTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = PokemonCenterTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
 
 
 class PokemonRedMtMoonTestTracker(PokemonTestTracker):
@@ -98,6 +101,7 @@ class PokemonRedMtMoonTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = MtMoonTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
 
 
 class PokemonRedSpeakToBillTestTracker(PokemonTestTracker):
@@ -106,6 +110,7 @@ class PokemonRedSpeakToBillTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = SpeakToBillCompleteTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
 
 
 class PokemonRedPickupPokeballTestTracker(PokemonTestTracker):
@@ -114,6 +119,7 @@ class PokemonRedPickupPokeballTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = PickupPokeballTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
 
 
 class PokemonRedReadTrainersTipsSignTestTracker(PokemonTestTracker):
@@ -122,6 +128,7 @@ class PokemonRedReadTrainersTipsSignTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = ReadTrainersTipsSignTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
 
 
 class PokemonRedSpeakToCinnabarGymAideCompleteTestTracker(PokemonTestTracker):
@@ -130,6 +137,7 @@ class PokemonRedSpeakToCinnabarGymAideCompleteTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = SpeakToCinnabarGymAideCompleteTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
 
 
 class PokemonRedSpeakToCinnabarMonkTestTracker(PokemonTestTracker):
@@ -138,6 +146,7 @@ class PokemonRedSpeakToCinnabarMonkTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = SpeakToCinnabarMonkTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
 
 
 class PokemonRedDefeatedBrockTestTracker(PokemonTestTracker):
@@ -146,6 +155,7 @@ class PokemonRedDefeatedBrockTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = DefeatedBrockTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
 
 
 class PokemonRedDefeatedLassTestTracker(PokemonTestTracker):
@@ -154,6 +164,7 @@ class PokemonRedDefeatedLassTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = DefeatedLassTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
 
 
 class PokemonRedCaughtPidgeyTestTracker(PokemonTestTracker):
@@ -162,6 +173,7 @@ class PokemonRedCaughtPidgeyTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = CaughtPidgeyTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
 
 
 class PokemonRedCaughtPikachuTestTracker(PokemonTestTracker):
@@ -170,6 +182,7 @@ class PokemonRedCaughtPikachuTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = CaughtPikachuTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
 
 
 class PokemonRedBoughtPotionAtPewterPokemartTestTracker(PokemonTestTracker):
@@ -178,6 +191,7 @@ class PokemonRedBoughtPotionAtPewterPokemartTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = BoughtPotionAtPewterPokemartTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
 
 
 class PokemonRedUsedPotionOnCharmanderTestTracker(PokemonTestTracker):
@@ -186,6 +200,7 @@ class PokemonRedUsedPotionOnCharmanderTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = UsedPotionOnCharmanderTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric
 
 
 class PokemonRedOpenMapTestTracker(PokemonTestTracker):
@@ -194,3 +209,4 @@ class PokemonRedOpenMapTestTracker(PokemonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = OpenMapTerminateMetric
+    SUBGOAL_METRIC = DummySubGoalMetric

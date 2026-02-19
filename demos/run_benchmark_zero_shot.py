@@ -20,6 +20,8 @@ def run_task(row, max_resets, controller_variant, **emulator_kwargs):
     n_resets = 1
     n_steps_total = 0
     n_steps = 0
+    subgoals_reached = []
+    subgoals_all = None
     mission = row["task"]
     task_str = mission.replace(" ", "_").lower()
     emulator_kwargs = emulator_kwargs.copy()
@@ -50,6 +52,13 @@ def run_task(row, max_resets, controller_variant, **emulator_kwargs):
                     last_state = environment.get_info()
                 else:
                     last_state = last_execution_states[-1]
+                # update subgoals
+                if subgoals_all is None:
+                    subgoals_all = last_state["subgoals"]["all"]
+                subgoals_completed = last_state["subgoals"]["completed"]
+                for subgoal in subgoals_completed:
+                    if subgoal not in subgoals_reached:
+                        subgoals_reached.append(subgoal)
                 step_count = last_state["core"]["steps"]
                 n_steps = step_count  # this counts all steps across resets
                 n_steps_total += n_steps
@@ -67,7 +76,7 @@ def run_task(row, max_resets, controller_variant, **emulator_kwargs):
         traceback.print_exc()
         print(f"Error during execution of task '{mission}': {e}")
     environment.close()
-    return success, n_resets - 1, n_steps_total
+    return success, n_resets - 1, n_steps_total, subgoals_reached, subgoals_all
 
 
 @click.command()
@@ -104,7 +113,15 @@ def do(
     }
     benchmark_tasks = get_benchmark_tasks(game=game)
     results = []
-    columns = ["game", "task", "success", "n_resets", "n_steps"]
+    columns = [
+        "game",
+        "task",
+        "success",
+        "n_resets",
+        "n_steps",
+        "subgoals_reached",
+        "all_subgoals",
+    ]
     if random_sample is not None:
         if not (1 <= random_sample <= len(benchmark_tasks) - 1):
             raise ValueError(
@@ -121,13 +138,23 @@ def do(
             print(f"Running override index {override_index} on row:")
             for column in row.index:
                 print(f"  {column}: {row[column]}")
-        success, n_resets, n_steps = run_task(
+        success, n_resets, n_steps, subgoals_reached, subgoals_all = run_task(
             row=row,
             max_resets=max_resets,
             controller_variant=controller_variant,
             **emulator_kwargs,
         )
-        results.append([row["game"], row["task"], success, n_resets, n_steps])
+        results.append(
+            [
+                row["game"],
+                row["task"],
+                success,
+                n_resets,
+                n_steps,
+                subgoals_reached,
+                subgoals_all,
+            ]
+        )
         df = pd.DataFrame(results, columns=columns)
         save_path = f"results/benchmark_zero_shot_{game}_{model_save_name}.csv"
         df.to_csv(save_path, index=False)
