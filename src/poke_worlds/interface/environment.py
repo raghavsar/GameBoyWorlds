@@ -816,26 +816,13 @@ class Environment(gym.Env, ABC):
                 rewards.append(reward)
                 if reward != 0:
                     log_info(f"Reward obtained: {reward}", self._parameters)
-                previous_action_details = info["core"].get("previous_action_details")
-                if previous_action_details is None:
-                    if info.get("invalid_action", False):
-                        log_warn(
-                            "Action was invalid in the current state. No transition executed.",
-                            self._parameters,
-                        )
-                    else:
-                        log_warn(
-                            "No previous_action_details found in state info.",
-                            self._parameters,
-                        )
-                    continue
                 (
                     action,
                     action_kwargs,
                     transition_states,
                     action_success,
                     action_return,
-                ) = previous_action_details
+                ) = info["core"]["previous_action_details"]
                 if show_info:
                     self.render_info(
                         action=action,
