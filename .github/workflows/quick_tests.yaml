@@ -38,9 +38,3 @@ jobs:
       # We use a custom build script for pdoc itself, ideally you just run `pdoc -o docs/ ...` here.
       - run: |
           bash quick_tests.sh
-      - uses: actions/upload-pages-artifact@v4
-        with:
-          path: docs/
-
-      - id: deployment
-        uses: actions/deploy-pages@
