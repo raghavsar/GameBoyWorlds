@@ -11,11 +11,19 @@ jobs:
   quick_tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Make script executable
-        run: chmod +x ./quick_tests.sh
-
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+          
+      - run: pip install uv
+      - run: uv sync --extra vlm
+      - run: |
+          . .venv/bin/activate
+          echo PATH=$PATH >> $GITHUB_ENV
+      - run: uv pip install -e ".[vlm]"
+      - run: chmod +x ./quick_tests.sh
       - name: Run quick tests
         run: ./quick_tests.sh
