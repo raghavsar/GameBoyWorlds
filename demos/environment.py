@@ -82,7 +82,7 @@ def main(
         controller_variant=controller_variant,
         save_video=save_video,
         max_steps=max_steps,
-        headless=False,
+        headless=True,
         init_state=init_state,
         state_tracker_class=state_tracker_class,
     )
@@ -112,8 +112,9 @@ def main(
         else:
             print(f"Episode finished after {steps} steps with total reward {sum(rewards)}")
     else:
-        # Use terminal + PyBoy window only in human mode to avoid pygame/SDL conflicts.
-        environment.human_step_play(show_obs=False, show_info=False)
+        show_obs = show_mode == "obs"
+        show_info = not show_obs
+        environment.human_step_play(show_obs=show_obs, show_info=show_info)
 
 
 if __name__ == "__main__":
