@@ -2,7 +2,7 @@ from typing import Optional
 from abc import ABC
 from poke_worlds.emulation.deja_vu.parsers import (
     AgentState,
-    MemoryBasedDejaVuStateParser,
+    # MemoryBasedDejaVuStateParser,
     DejaVuStateParser,
     DejaVuStateParser,
 )
