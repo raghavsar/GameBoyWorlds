@@ -35,7 +35,7 @@ def get_logger(
     """
     fmt_str = "%(asctime)s, [%(levelname)s, %(custom_path)s:%(lineno)d] %(message)s"
     logging.basicConfig(format=fmt_str)
-    logger = logging.getLogger("PokeWorlds")
+    logger = logging.getLogger("GameBoyWorlds-Server")
     if add_console:
         logger.handlers.clear()
         console_handler = logging.StreamHandler()
