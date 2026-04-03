@@ -219,10 +219,17 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
             ("screen_middle", 65, 63, 30, 30),
             ("screen_bottom", 0, 100, 160, 40),
             ("dialogue_box_top", 60, 11, 40, 8),
+            ("dialogue_box_bottom", 0, 105, 160, 35),
+            ("field_middle", 75, 60, 10,10),
+            ("item_bed", 0, 40, 40, 40),
             ("item_watercan_above", 56, 85, 15, 35),
             ("item_watercan_right", 55, 80, 30, 20),
             ("item_watercan_below", 56, 70, 15, 30),
-            
+            ("item_spirit_left", 70, 50, 30, 30),
+            ("item_spirit_below", 70, 50, 30, 30),
+            ("item_spirit_above", 70, 50, 15, 50),
+            ("turnip_center", 70, 90, 20, 20),
+            ("turnip_top", 70, 70, 20, 35),
         ]
         
         override_multi_targets = {
@@ -234,6 +241,13 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
                 "outside_chicken_coop_right",
                 "outside_chicken_coop_up",
             ],
+            "dialogue_box_bottom":[
+                "choose_yes_for_sleep",
+                "fed_spirit",
+            ],
+            "item_bed":[
+                "sleep_in_bed",
+            ],
             "item_watercan_above":[
                 "pickup_watercan_down",
             ],
@@ -243,9 +257,24 @@ class HarvestMoon1Parser(BaseHarvestMoonStateParser):
             "item_watercan_below":[
                 "pickup_watercan_up",
             ],
+            "item_spirit_left":[
+                "feed_spirit_right",
+            ],
+            "item_spirit_above":[
+                "feed_spirit_down",
+            ],
+            "item_spirit_below":[
+                "feed_spirit_up",
+            ],
             "dialogue_box_top":[
                 "pick_up_watercan",
             ],
+            "turnip_center":[
+                "finish_watering",
+            ],
+            "turnip_top":[
+                "ready_to_water",
+            ]
         }
 
         super().__init__(
