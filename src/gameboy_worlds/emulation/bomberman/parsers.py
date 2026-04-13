@@ -74,7 +74,7 @@ class BombermanMaxParser(BombermanParser):
         "hud_enemy_count": [],
         "hud_bomb_count": [],
         "hud_fire": [],
-        "zone_background": ["in_zone_1"],
+        "zone_background": [],
     }
 
     def is_in_menu(self, current_screen: np.ndarray) -> bool:
