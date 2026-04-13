@@ -180,10 +180,17 @@ class DialogueActiveTerminateMetric(RegionMatchTerminationMetric, TerminationMet
     _TERMINATION_TARGET_NAME = "dialogue_active"
 
 
-class NpcDialogueTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+class BookReadTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = BombermanQuestParser
-    _TERMINATION_NAMED_REGION = "dialogue_icon"
-    _TERMINATION_TARGET_NAME = "npc_dialogue_active"
+    _TERMINATION_NAMED_REGION = "book_bottom"
+    _TERMINATION_TARGET_NAME = "book_read_active"
+
+
+class NpcDialogueTerminateMetric(TerminationMetric):
+    REQUIRED_PARSER = BombermanQuestParser
+
+    def determine_terminated(self, current_frame, recent_frames):
+        return self.state_parser.is_in_npc_dialogue(current_frame)
 
 
 class SignDialogueTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
@@ -196,6 +203,26 @@ class BattleActiveTerminateMetric(RegionMatchTerminationMetric, TerminationMetri
     REQUIRED_PARSER = BombermanQuestParser
     _TERMINATION_NAMED_REGION = "hud_bottom"
     _TERMINATION_TARGET_NAME = "battle_active"
+
+
+class ShieldSelectTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BombermanQuestParser
+    _TERMINATION_NAMED_REGION = "item_select_panel"
+    _TERMINATION_TARGET_NAME = "shield_select_active"
+
+
+class BombComponentSelectTerminateMetric(
+    RegionMatchTerminationMetric, TerminationMetric
+):
+    REQUIRED_PARSER = BombermanQuestParser
+    _TERMINATION_NAMED_REGION = "item_select_panel"
+    _TERMINATION_TARGET_NAME = "bomb_component_select_active"
+
+
+class EnterCampTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BombermanQuestParser
+    _TERMINATION_NAMED_REGION = "zone_background"
+    _TERMINATION_TARGET_NAME = "in_camp"
 
 
 class FieldZoneTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):

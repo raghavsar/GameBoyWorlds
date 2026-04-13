@@ -6,6 +6,8 @@ from gameboy_worlds.emulation.bomberman.base_metrics import (
 from gameboy_worlds.emulation.bomberman.test_metrics import (
     BattleActiveTerminateMetric,
     BombSelectOpenTerminateMetric,
+    BombComponentSelectTerminateMetric,
+    BookReadTerminateMetric,
     BombermanMaxGameOverTerminateMetric,
     BombermanPocketGameOverTerminateMetric,
     BombermanQuestGameOverTerminateMetric,
@@ -15,6 +17,7 @@ from gameboy_worlds.emulation.bomberman.test_metrics import (
     CloudZoneTerminateMetric,
     DesertZoneTerminateMetric,
     DialogueActiveTerminateMetric,
+    EnterCampTerminateMetric,
     EvilAreaIntroTerminateMetric,
     FieldZoneTerminateMetric,
     ForestAreaIntroTerminateMetric,
@@ -33,6 +36,7 @@ from gameboy_worlds.emulation.bomberman.test_metrics import (
     PauseActiveTerminateMetric,
     PauseMenuOpenTerminateMetric,
     PitchAreaTerminateMetric,
+    ShieldSelectTerminateMetric,
     SignDialogueTerminateMetric,
     StageBriefingTerminateMetric,
     StageSelectTerminateMetric,
@@ -219,3 +223,19 @@ class BombermanQuestDesertZoneTestTracker(BombermanQuestBaseTestTracker):
 
 class BombermanQuestCloudZoneTestTracker(BombermanQuestBaseTestTracker):
     TERMINATION_TRUNCATION_METRIC = CloudZoneTerminateMetric
+
+
+class BombermanQuestShieldSelectTestTracker(BombermanQuestBaseTestTracker):
+    TERMINATION_TRUNCATION_METRIC = ShieldSelectTerminateMetric
+
+
+class BombermanQuestBombComponentSelectTestTracker(BombermanQuestBaseTestTracker):
+    TERMINATION_TRUNCATION_METRIC = BombComponentSelectTerminateMetric
+
+
+class BombermanQuestEnterCampTestTracker(BombermanQuestBaseTestTracker):
+    TERMINATION_TRUNCATION_METRIC = EnterCampTerminateMetric
+
+
+class BombermanQuestBookReadTestTracker(BombermanQuestBaseTestTracker):
+    TERMINATION_TRUNCATION_METRIC = BookReadTerminateMetric

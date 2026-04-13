@@ -185,22 +185,30 @@ class BombermanQuestParser(BombermanParser):
     MULTI_TARGET_REGIONS = [
         ("screen_top", 0, 0, 160, 16),
         ("dialogue_strip", 0, 12, 160, 10),
-        ("dialogue_icon", 112, 18, 48, 50),
-        ("hud_bottom", 0, 136, 160, 8),
+        ("dialogue_icon", 124, 30, 31, 27),
+        ("hud_bottom", 47, 136, 33, 8),
+        ("item_select_panel", 95, 5, 65, 85),
         ("zone_background", 0, 0, 160, 32),
+        ("book_bottom", 0, 120, 160, 20),
     ]
 
     MULTI_TARGETS = {
         "screen_top": ["pause_menu_open", "bomb_select_open", "game_over"],
         "dialogue_strip": ["dialogue_active"],
-        "dialogue_icon": ["npc_dialogue_active", "sign_dialogue_active"],
+        "dialogue_icon": ["sign_dialogue_active"],
         "hud_bottom": ["battle_active"],
+        "item_select_panel": [
+            "shield_select_active",
+            "bomb_component_select_active",
+        ],
         "zone_background": [
             "in_field_zone",
             "in_forest_zone",
             "in_desert_zone",
             "in_cloud_zone",
+            "in_camp",
         ],
+        "book_bottom": ["book_read_active"],
     }
 
     def is_in_menu(self, current_screen: np.ndarray) -> bool:
@@ -216,10 +224,26 @@ class BombermanQuestParser(BombermanParser):
         return self._matches(current_screen, "dialogue_strip", "dialogue_active")
 
     def is_in_npc_dialogue(self, current_screen: np.ndarray) -> bool:
-        return self._matches(current_screen, "dialogue_icon", "npc_dialogue_active")
+        return self.is_in_dialogue(current_screen) and not self.is_reading_sign(
+            current_screen
+        )
 
     def is_reading_sign(self, current_screen: np.ndarray) -> bool:
         return self._matches(current_screen, "dialogue_icon", "sign_dialogue_active")
+
+    def is_reading_book(self, current_screen: np.ndarray) -> bool:
+        return self._matches(current_screen, "book_bottom", "book_read_active")
+
+    def is_shield_select_active(self, current_screen: np.ndarray) -> bool:
+        return self._matches(current_screen, "item_select_panel", "shield_select_active")
+
+    def is_bomb_component_select_active(self, current_screen: np.ndarray) -> bool:
+        return self._matches(
+            current_screen, "item_select_panel", "bomb_component_select_active"
+        )
+
+    def is_in_camp(self, current_screen: np.ndarray) -> bool:
+        return self._matches(current_screen, "zone_background", "in_camp")
 
     def is_in_field_zone(self, current_screen: np.ndarray) -> bool:
         return self._matches(current_screen, "zone_background", "in_field_zone")

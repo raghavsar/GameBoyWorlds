@@ -61,5 +61,7 @@ class BombermanQuestCoreMetrics(BombermanCoreMetrics):
     METRIC_METHODS = {
         "is_in_menu": "is_in_menu",
         "is_in_dialogue": "is_in_dialogue",
+        "is_in_npc_dialogue": "is_in_npc_dialogue",
+        "is_reading_sign": "is_reading_sign",
         "is_in_battle": "is_in_battle",
     }

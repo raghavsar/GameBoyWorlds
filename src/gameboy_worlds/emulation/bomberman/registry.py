@@ -31,12 +31,16 @@ from gameboy_worlds.emulation.bomberman.trackers import (
     BombermanQuestBattleTestTracker,
     BombermanQuestBombSelectTestTracker,
     BombermanQuestCloudZoneTestTracker,
+    BombermanQuestBombComponentSelectTestTracker,
     BombermanQuestDesertZoneTestTracker,
+    BombermanQuestEnterCampTestTracker,
     BombermanQuestFieldZoneTestTracker,
     BombermanQuestForestZoneTestTracker,
     BombermanQuestGameOverTestTracker,
+    BombermanQuestBookReadTestTracker,
     BombermanQuestNpcDialogueTestTracker,
     BombermanQuestPauseMenuTestTracker,
+    BombermanQuestShieldSelectTestTracker,
     BombermanQuestSignDialogueTestTracker,
     BombermanQuestTracker,
 )
@@ -96,6 +100,10 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
         "forest_zone_test": BombermanQuestForestZoneTestTracker,
         "desert_zone_test": BombermanQuestDesertZoneTestTracker,
         "cloud_zone_test": BombermanQuestCloudZoneTestTracker,
+        "shield_select_test": BombermanQuestShieldSelectTestTracker,
+        "bomb_component_select_test": BombermanQuestBombComponentSelectTestTracker,
+        "enter_camp_test": BombermanQuestEnterCampTestTracker,
+        "book_read_test": BombermanQuestBookReadTestTracker,
     },
 }
 
