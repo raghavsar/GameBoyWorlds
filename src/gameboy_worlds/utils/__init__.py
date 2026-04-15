@@ -11,6 +11,34 @@ import pandas as pd
 from time import perf_counter_ns
 
 
+def import_cv2(parameters: dict = None):
+    """
+    Import cv2 lazily so headless runs without video writing do not load extra SDL libraries.
+    """
+    try:
+        import cv2
+    except ImportError:
+        log_error(
+            "OpenCV (cv2) is required for emulator video recording utilities.",
+            parameters,
+        )
+    return cv2
+
+
+def import_pygame(parameters: dict):
+    """
+    Import pygame lazily so headless runs don't pull in SDL unless rendering is requested.
+    """
+    try:
+        import pygame
+    except ImportError:
+        log_error(
+            "pygame is required for render() / human play display. Install pygame or run without render.",
+            parameters,
+        )
+    return pygame
+
+
 def is_none_str(s) -> bool:
     """
     Checks if a string is None or represents a null value.
@@ -100,6 +128,26 @@ def show_frames(
     titles length must be equal to frame length if specified.
     """
     parameters = load_parameters(parameters)
+    if isinstance(frames, list):
+        for i in range(len(frames)):
+            if frames[i].ndim == 2:
+                frames[i] = np.expand_dims(frames[i], axis=-1)
+    else:
+        if not isinstance(frames, np.ndarray):
+            log_error(
+                f"Frames must be a numpy array or list of numpy arrays, but got {type(frames)}",
+                parameters,
+            )
+        if frames.ndim == 2:
+            frames = [np.expand_dims(frames, axis=-1)]
+        elif frames.ndim == 3:
+            # now either we have (num_frames, height, width) or (height, width, channels)
+            if frames.shape[2] == 1:
+                frames = [frames]
+            else:
+                frames = [
+                    np.expand_dims(frames[i], axis=-1) for i in range(frames.shape[0])
+                ]
     if isinstance(titles, str):
         titles = [titles]
     if save:
@@ -115,6 +163,7 @@ def show_frames(
         )
     save_dir = "frame_saves/"
     os.makedirs(save_dir, exist_ok=True)
+
     for i in range(len(frames)):
         plt.imshow(frames[i])
         if titles is not None:

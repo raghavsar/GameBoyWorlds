@@ -5,13 +5,47 @@ from gameboy_worlds.emulation.harvest_moon.base_metrics import (
 )
 from gameboy_worlds.emulation.harvest_moon.test_metrics import (
     CowBarnTerminateMetric,
+    OutsideCowBarnSubgoal,
     ChickenCoopTerminateMetric,
+    OutsideChickenCoopSubgoal,
+    PickupWaterCanTerminateMetric,
+    NextToWaterCanSubgoal,
+    GoToSleepTerminateMetric,
+    SleepOptionSubgoal,
+    FeedSpiritTerminateMetric,
+    NextToSpiritSubgoal,
+    WaterTurnipTerminateMetric,
+    NextToTurnipSubgoal,
+    BuyPotatoSeedsTerminateMetric,
+    OutsideFlowerShopSubgoal,
+    ShopForSeedsSubgoal,
+    SelectPotatoSeedsSubgoal,
+    SelectPotatoSeedsOnePortionSubgoal,
+    BuyTurnipSeedsTerminateMetric,
+    SelectTurnipSeedsSubgoal,
+    SelectTurnipSeedsOnePortionSubgoal,
+    BuyRiceBallTerminateMetric,
+    OutsideRestaurantSubgoal,
+    ShopForFoodSubgoal,
+    SelectRiceBallSubgoal,
+    BuyRiceBallOptionSubgoal,
+    OpenStorageListTerminateMetric,
+    NextToStorageListSubgoal,
+    FindLostBirdTerminateMetric,
+    NextToLostBirdSubgoal,
+    SpeakToBlueHairGirlTerminateMetric,
+    NextToBlueHairGirlSubgoal,
+    FillChickenFodderBlock1TerminateMetric,
+    NextToChickenSiloSubgoal,
+    PickupChickenFodderSubgoal,
+    NextToChickenFodderBlock1Subgoal,
 )
 from gameboy_worlds.utils import log_info
 from gameboy_worlds.emulation.tracker import (
     StateTracker,
     TestTrackerMixin,
     DummySubGoalMetric,
+    make_subgoal_metric_class,
 )
 from gameboy_worlds.emulation.harvest_moon.parsers import (
     AgentState,
@@ -67,7 +101,7 @@ class HarvestMoonCowBarnTracker(HarvestMoonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = CowBarnTerminateMetric
-    SUBGOAL_METRIC = DummySubGoalMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideCowBarnSubgoal])
     
 class HarvestMoonChickenCoopTracker(HarvestMoonTestTracker):
     """
@@ -75,4 +109,100 @@ class HarvestMoonChickenCoopTracker(HarvestMoonTestTracker):
     """
 
     TERMINATION_TRUNCATION_METRIC = ChickenCoopTerminateMetric
-    SUBGOAL_METRIC = DummySubGoalMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideChickenCoopSubgoal])
+
+class HarvestMoonPickupWaterCanTracker(HarvestMoonTestTracker):
+    """
+    Inherit this class and set TERMINATION_TRUNCATION_METRIC to create a TestTracker for Harvest Moon games.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = PickupWaterCanTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([NextToWaterCanSubgoal])
+
+class HarvestMoonGoToSleepTracker(HarvestMoonTestTracker):
+    """
+    Inherit this class and set TERMINATION_TRUNCATION_METRIC to create a TestTracker for Harvest Moon games.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = GoToSleepTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([SleepOptionSubgoal])
+    
+class HarvestMoonFeedSpiritTracker(HarvestMoonTestTracker):
+    """
+    Inherit this class and set TERMINATION_TRUNCATION_METRIC to create a TestTracker for Harvest Moon games.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = FeedSpiritTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([NextToSpiritSubgoal])
+
+class HarvestMoonWaterTurnipTracker(HarvestMoonTestTracker):
+    """
+    Inherit this class and set TERMINATION_TRUNCATION_METRIC to create a TestTracker for Harvest Moon games.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = WaterTurnipTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([NextToTurnipSubgoal])
+
+class HarvestMoonBuyPotatoSeedsTracker(HarvestMoonTestTracker):
+    """
+    Inherit this class and set TERMINATION_TRUNCATION_METRIC to create a TestTracker for Harvest Moon games.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = BuyPotatoSeedsTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideFlowerShopSubgoal, ShopForSeedsSubgoal, SelectPotatoSeedsSubgoal, SelectPotatoSeedsOnePortionSubgoal])
+
+class HarvestMoonBuyTurnipSeedsTracker(HarvestMoonTestTracker):
+    """
+    Inherit this class and set TERMINATION_TRUNCATION_METRIC to create a TestTracker for Harvest Moon games.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = BuyTurnipSeedsTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideFlowerShopSubgoal,ShopForSeedsSubgoal, SelectTurnipSeedsSubgoal, SelectTurnipSeedsOnePortionSubgoal])
+
+class HarvestMoonBuyRiceBallTracker(HarvestMoonTestTracker):
+    """
+    Inherit this class and set TERMINATION_TRUNCATION_METRIC to create a TestTracker for Harvest Moon games.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = BuyRiceBallTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideRestaurantSubgoal, ShopForFoodSubgoal, SelectRiceBallSubgoal, BuyRiceBallOptionSubgoal])
+
+class HarvestMoonOpenStorageListTracker(HarvestMoonTestTracker):
+    """
+    Inherit this class and set TERMINATION_TRUNCATION_METRIC to create a TestTracker for Harvest Moon games.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = OpenStorageListTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([NextToStorageListSubgoal])
+
+class HarvestMoonFindLostBirdTracker(HarvestMoonTestTracker):
+    """
+    Inherit this class and set TERMINATION_TRUNCATION_METRIC to create a TestTracker for Harvest Moon games.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = FindLostBirdTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([NextToLostBirdSubgoal])
+
+class HarvestMoonSpeakToBlueHairGirlTracker(HarvestMoonTestTracker):
+    """
+    Inherit this class and set TERMINATION_TRUNCATION_METRIC to create a TestTracker for Harvest Moon games.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = SpeakToBlueHairGirlTerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([NextToBlueHairGirlSubgoal])
+
+class HarvestMoonFillChickenFodderTracker(HarvestMoonTestTracker):
+    """
+    Inherit this class and set TERMINATION_TRUNCATION_METRIC to create a TestTracker for Harvest Moon games.
+    """
+
+    TERMINATION_TRUNCATION_METRIC = FillChickenFodderBlock1TerminateMetric
+    SUBGOAL_METRIC = make_subgoal_metric_class([NextToChickenSiloSubgoal, PickupChickenFodderSubgoal, NextToChickenFodderBlock1Subgoal])
+
+# class HarvestMoonCleanRockTracker(HarvestMoonTestTracker):
+#     """
+#     Inherit this class and set TERMINATION_TRUNCATION_METRIC to create a TestTracker for Harvest Moon games.
+#     """
+
+#     TERMINATION_TRUNCATION_METRIC = PickupWaterCanTerminateMetric
+#     SUBGOAL_METRIC = make_subgoal_metric_class([NextToWaterCanSubgoal])
