@@ -8,7 +8,20 @@ from gameboy_worlds.emulation.deja_vu.parsers import (
     DejaVu2StateParser,
 )
 from gameboy_worlds.emulation.deja_vu.trackers import (
+    DejaVuCoatTestTracker,
+    DejaVuEnterCellarTestTracker,
     DejaVuOCRTracker,
+    DejaVuOpenSpigotTestTracker,
+    DejaVuTakeGunTestTracker,
+    DejaVuOpenDoorTestTracker,
+    DejaVuCloseDoorTestTracker,
+    DejaVuOpenPocketTestTracker,
+    DejaVuOpenWalletTestTracker,
+    DejaVuClosePocketTestTracker,
+    DejaVuCloseWalletTestTracker,
+    DejaVuCheckedCoatTestTracker,
+    DejaVuCheckedGunTestTracker,
+    DejaVuHitBottleTestTracker,
 )
 from gameboy_worlds.emulation.deja_vu.emulators import DejaVuEmulator
 
@@ -30,8 +43,25 @@ This means there is never a reason to use a weaker parser.
 
 
 AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
-    "deja_vu_1": {"default": DejaVuOCRTracker},
-    "deja_vu_2": {"default": DejaVuOCRTracker},
+    "deja_vu_1": {
+        "default": DejaVuOCRTracker,
+        "take_coat_test": DejaVuCoatTestTracker,
+        "take_gun_test": DejaVuTakeGunTestTracker,
+        "open_door_test": DejaVuOpenDoorTestTracker,
+        "close_door_test": DejaVuCloseDoorTestTracker,
+        "open_pocket_test": DejaVuOpenPocketTestTracker,
+        "open_wallet_test": DejaVuOpenWalletTestTracker,
+        "close_pocket_test": DejaVuClosePocketTestTracker,
+        "close_wallet_test": DejaVuCloseWalletTestTracker,
+        "checked_coat_test": DejaVuCheckedCoatTestTracker,
+        "checked_gun_test": DejaVuCheckedGunTestTracker,
+        "hit_bottle_test": DejaVuHitBottleTestTracker,
+        "open_spigot_test": DejaVuOpenSpigotTestTracker,
+        "enter_cellar_test": DejaVuEnterCellarTestTracker,
+    },
+    "deja_vu_2": {
+        "default": DejaVuOCRTracker
+    },
 }
 """ Mapping of game names to their available StateTracker classes with string identifiers. """
 

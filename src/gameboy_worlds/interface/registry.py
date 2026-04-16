@@ -307,3 +307,13 @@ def get_shifted_environments_kwargs(
             parameters,
         )
     return shifted_envs_kwargs
+
+
+import os
+
+AVAILABLE_BENCHMARKS = [
+    item.strip(".csv")
+    for item in os.listdir("benchmark_tests")
+    if item.endswith(".csv")
+]
+""" List of available benchmark names. Populated by the files in benchmark_tests. """
