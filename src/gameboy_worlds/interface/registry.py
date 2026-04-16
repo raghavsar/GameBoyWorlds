@@ -311,7 +311,6 @@ import os
 
 AVAILABLE_BENCHMARKS = [
     item.strip(".csv")
-    for item in os.listdir("benchmark_tests")
-    if item.endswith(".csv")
+    for item in os.listdir(_project_parameters["project_root"] + "/benchmark_tests")
 ]
 """ List of available benchmark names. Populated by the files in benchmark_tests. """
