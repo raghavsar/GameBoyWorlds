@@ -94,3 +94,186 @@ class ShopMenuOpenSubGoal(RegionMatchSubGoal):
     NAME = "shop_menu_open"
     _NAMED_REGION = "status_command"
     _TARGET_NAME = "shop_menu_open"
+
+
+class ExplorationMenuTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "command_area"
+    _TERMINATION_TARGET_NAME = "exploration_menu"
+
+
+class DialogueVisibleSubGoal(RegionMatchSubGoal):
+    NAME = "dialogue_visible"
+    _NAMED_REGION = "status_command"
+    _TARGET_NAME = "dialogue_visible"
+
+
+class DialogueAdvancedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "status_command"
+    _TERMINATION_TARGET_NAME = "dialogue_advanced"
+
+
+class DialogueInitiatedSubGoal(RegionMatchSubGoal):
+    NAME = "dialogue_initiated"
+    _NAMED_REGION = "status_command"
+    _TARGET_NAME = "dialogue_initiated"
+
+
+class MenuOpenSubGoal(RegionMatchSubGoal):
+    NAME = "menu_open"
+    _NAMED_REGION = "command_area"
+    _TARGET_NAME = "menu_open"
+
+
+class BattleMagicMenuTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "battle_command"
+    _TERMINATION_TARGET_NAME = "battle_magic_menu"
+
+
+class TeleportResultTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "status_command"
+    _TERMINATION_TARGET_NAME = "teleport_result"
+
+
+class MagicMenuOpenSubGoal(RegionMatchSubGoal):
+    NAME = "magic_menu_open"
+    _NAMED_REGION = "status_command"
+    _TARGET_NAME = "magic_menu_open"
+
+
+class MistressSecondDialogueTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "battle_full"
+    _TERMINATION_TARGET_NAME = "mistress_second_dialogue"
+
+
+class MistressFirstDialogueSubGoal(RegionMatchSubGoal):
+    NAME = "mistress_first_dialogue"
+    _NAMED_REGION = "battle_full"
+    _TARGET_NAME = "mistress_first_dialogue"
+
+
+class SaveConfirmedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "battle_full"
+    _TERMINATION_TARGET_NAME = "save_confirmed"
+
+
+class SavePromptVisibleSubGoal(RegionMatchSubGoal):
+    NAME = "save_prompt_visible"
+    _NAMED_REGION = "battle_full"
+    _TARGET_NAME = "save_prompt_visible"
+
+
+class HerbReceivedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "battle_full"
+    _TERMINATION_TARGET_NAME = "herb_received"
+
+
+class LookPathTargetSubGoal(RegionMatchSubGoal):
+    NAME = "look_path_target"
+    _NAMED_REGION = "battle_full"
+    _TARGET_NAME = "look_path_target"
+
+
+class TrtFruitReceivedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "battle_full"
+    _TERMINATION_TARGET_NAME = "trtfruit_received"
+
+
+class HitTargetShownSubGoal(RegionMatchSubGoal):
+    NAME = "hit_target_shown"
+    _NAMED_REGION = "battle_full"
+    _TARGET_NAME = "hit_target_shown"
+
+
+class TreantDefeatedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "battle_full"
+    _TERMINATION_TARGET_NAME = "treant_defeated"
+
+
+class PassageRevealedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "battle_full"
+    _TERMINATION_TARGET_NAME = "passage_revealed"
+
+
+class HitWallTargetSubGoal(RegionMatchSubGoal):
+    NAME = "hit_wall_target"
+    _NAMED_REGION = "battle_full"
+    _TARGET_NAME = "hit_wall_target"
+
+
+class GateOpenedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "battle_full"
+    _TERMINATION_TARGET_NAME = "gate_opened"
+
+
+class KeyMSelectedSubGoal(RegionMatchSubGoal):
+    NAME = "key_m_selected"
+    _NAMED_REGION = "battle_full"
+    _TARGET_NAME = "key_m_selected"
+
+
+class ScrollReceivedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "battle_full"
+    _TERMINATION_TARGET_NAME = "scroll_received"
+
+
+class InBackroomSubGoal(RegionMatchSubGoal):
+    NAME = "in_backroom"
+    _NAMED_REGION = "battle_full"
+    _TARGET_NAME = "in_backroom"
+
+
+class CharmReceivedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "battle_full"
+    _TERMINATION_TARGET_NAME = "charm_received"
+
+
+class GraceSelectedSubGoal(RegionMatchSubGoal):
+    NAME = "grace_selected"
+    _NAMED_REGION = "battle_full"
+    _TARGET_NAME = "grace_selected"
+
+
+class TeleportLandedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "status_command"
+    _TERMINATION_TARGET_NAME = "teleport_landed"
+
+
+class TeleportDestCursorSubGoal(RegionMatchSubGoal):
+    NAME = "teleport_dest_cursor"
+    _NAMED_REGION = "status_command"
+    _TARGET_NAME = "teleport_dest_cursor"
+
+
+class EscapeConfirmedTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = SwordOfHope1Parser
+
+    _TERMINATION_NAMED_REGION = "battle_command"
+    _TERMINATION_TARGET_NAME = "escape_confirmed"
