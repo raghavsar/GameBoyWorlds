@@ -31,17 +31,17 @@ from gameboy_worlds.emulation.harvest_moon.test_metrics import (
     WaterTurnipTerminateMetric,
     NextToTurnipSubgoal,
     BuyMaterialTerminateMetric,
-    OutsideCarpenterSubgoal,
+    OutsideCarpenter1Subgoal,
     ShopForMaterialSubgoal,
     SelectMaterialSubgoal,
     BuyChickenTerminateMetric,
-    OutsideAnimalShopSubgoal,
+    OutsideAnimalShop1Subgoal,
     ShopForAnimalSubgoal,
     SelectChickenSubgoal,
     BuyCowBrushTerminateMetric,
     BuySaddlebagTerminateMetric,
     BuyMilkerTerminateMetric,
-    OutsideToolShopSubgoal,
+    OutsideToolShop1Subgoal,
     ShopForToolsSubgoal,
     SelectCowBrushSubgoal,
     SelectSaddlebagSubgoal,
@@ -96,11 +96,11 @@ from gameboy_worlds.emulation.harvest_moon.test_metrics import (
     HospitalEntranceTerminateMetric,
     OutsideHospitalSubgoal,
     ToolShopEntranceTerminateMetric,
-    OutsideToolShopSubgoal,
+    OutsideToolShop2Subgoal,
     CarpenterEntranceTerminateMetric,
-    OutsideCarpenterSubgoal,
+    OutsideCarpenter2Subgoal,
     AnimalShopEntranceTerminateMetric,
-    OutsideAnimalShopSubgoal,
+    OutsideAnimalShop2Subgoal,
     LibraryEntranceTerminateMetric,
     OutsideLibrarySubgoal,
     FindLuckyMoneyTerminateMetric,
@@ -335,23 +335,23 @@ class HarvestMoonWaterTurnipTracker(HarvestMoonTestTracker):
 
 class HarvestMoonBuyMaterialTracker(HarvestMoonTestTracker):
     TERMINATION_TRUNCATION_METRIC = BuyMaterialTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideCarpenterSubgoal, ShopForMaterialSubgoal, SelectMaterialSubgoal])
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideCarpenter1Subgoal, ShopForMaterialSubgoal, SelectMaterialSubgoal])
 
 class HarvestMoonBuyChickenTracker(HarvestMoonTestTracker):
     TERMINATION_TRUNCATION_METRIC = BuyChickenTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideAnimalShopSubgoal, ShopForAnimalSubgoal, SelectChickenSubgoal])
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideAnimalShop1Subgoal, ShopForAnimalSubgoal, SelectChickenSubgoal])
 
 class HarvestMoonBuyCowBrushTracker(HarvestMoonTestTracker):
     TERMINATION_TRUNCATION_METRIC = BuyCowBrushTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideToolShopSubgoal, ShopForToolsSubgoal, SelectCowBrushSubgoal])
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideToolShop1Subgoal, ShopForToolsSubgoal, SelectCowBrushSubgoal])
 
 class HarvestMoonBuySaddlebagTracker(HarvestMoonTestTracker):
     TERMINATION_TRUNCATION_METRIC = BuySaddlebagTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideToolShopSubgoal, ShopForToolsSubgoal, SelectSaddlebagSubgoal])
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideToolShop1Subgoal, ShopForToolsSubgoal, SelectSaddlebagSubgoal])
 
 class HarvestMoonBuyMilkerTracker(HarvestMoonTestTracker):
     TERMINATION_TRUNCATION_METRIC = BuyMilkerTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideToolShopSubgoal, ShopForToolsSubgoal, SelectMilkerSubgoal])
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideToolShop1Subgoal, ShopForToolsSubgoal, SelectMilkerSubgoal])
 
 class HarvestMoonBuyPotatoSeedsTracker(HarvestMoonTestTracker):
     """
@@ -457,15 +457,15 @@ class HarvestMoon2HospitalEntranceTracker(HarvestMoonTestTracker):
 
 class HarvestMoon2ToolShopEntranceTracker(HarvestMoonTestTracker):
     TERMINATION_TRUNCATION_METRIC = ToolShopEntranceTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideToolShopSubgoal])
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideToolShop2Subgoal])
 
 class HarvestMoon2CarpenterEntranceTracker(HarvestMoonTestTracker):
     TERMINATION_TRUNCATION_METRIC = CarpenterEntranceTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideCarpenterSubgoal])
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideCarpenter2Subgoal])
 
 class HarvestMoon2AnimalShopEntranceTracker(HarvestMoonTestTracker):
     TERMINATION_TRUNCATION_METRIC = AnimalShopEntranceTerminateMetric
-    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideAnimalShopSubgoal])
+    SUBGOAL_METRIC = make_subgoal_metric_class([OutsideAnimalShop2Subgoal])
 
 class HarvestMoon2LibraryEntranceTracker(HarvestMoonTestTracker):
     TERMINATION_TRUNCATION_METRIC = LibraryEntranceTerminateMetric

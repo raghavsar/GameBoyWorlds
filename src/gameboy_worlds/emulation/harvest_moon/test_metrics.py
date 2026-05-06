@@ -347,7 +347,7 @@ class BuyMaterialTerminateMetric(RegionMatchTerminationMetric, TerminationMetric
     _TERMINATION_NAMED_REGION = "screen_bottom_half"
     _TERMINATION_TARGET_NAME = "bought_material"
 
-class OutsideCarpenterSubgoal(AnyRegionMatchSubGoal):
+class OutsideCarpenter1Subgoal(AnyRegionMatchSubGoal):
     NAME = "outside_carpenter"
     _NAMED_REGIONS = [
         "center_sign",
@@ -380,7 +380,7 @@ class BuyChickenTerminateMetric(RegionMatchTerminationMetric, TerminationMetric)
     _TERMINATION_NAMED_REGION = "screen_bottom_half"
     _TERMINATION_TARGET_NAME = "bought_chicken"
 
-class OutsideAnimalShopSubgoal(AnyRegionMatchSubGoal):
+class OutsideAnimalShop1Subgoal(AnyRegionMatchSubGoal):
     NAME = "outside_animal_shop"
     _NAMED_REGIONS = [
         "center_sign",
@@ -425,7 +425,7 @@ class BuyMilkerTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     _TERMINATION_NAMED_REGION = "screen_bottom_half"
     _TERMINATION_TARGET_NAME = "bought_milker"
 
-class OutsideToolShopSubgoal(AnyRegionMatchSubGoal):
+class OutsideToolShop1Subgoal(AnyRegionMatchSubGoal):
     NAME = "outside_tool_shop"
     _NAMED_REGIONS = [
         "center_sign",
@@ -881,7 +881,7 @@ class ToolShopEntranceTerminateMetric(RegionMatchTerminationMetric, TerminationM
     _TERMINATION_NAMED_REGION = "screen_top_half"
     _TERMINATION_TARGET_NAME = "in_tool_shop"
 
-class OutsideToolShopSubgoal(AnyRegionMatchSubGoal):
+class OutsideToolShop2Subgoal(AnyRegionMatchSubGoal):
     NAME = "outside_tool_shop"
     _NAMED_REGIONS = [
         "tool_shop_location",
@@ -899,7 +899,7 @@ class CarpenterEntranceTerminateMetric(RegionMatchTerminationMetric, Termination
     _TERMINATION_NAMED_REGION = "screen_top_half"
     _TERMINATION_TARGET_NAME = "in_carpenter"
 
-class OutsideCarpenterSubgoal(AnyRegionMatchSubGoal):
+class OutsideCarpenter2Subgoal(AnyRegionMatchSubGoal):
     NAME = "outside_carpenter"
     _NAMED_REGIONS = [
         "carpenter_location",
@@ -917,7 +917,7 @@ class AnimalShopEntranceTerminateMetric(RegionMatchTerminationMetric, Terminatio
     _TERMINATION_NAMED_REGION = "screen_top_half"
     _TERMINATION_TARGET_NAME = "in_animal_shop"
 
-class OutsideAnimalShopSubgoal(AnyRegionMatchSubGoal):
+class OutsideAnimalShop2Subgoal(AnyRegionMatchSubGoal):
     NAME = "outside_animal_shop"
     _NAMED_REGIONS = [
         "animal_shop_location",
