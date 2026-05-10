@@ -202,6 +202,8 @@ class BombermanQuestParser(BombermanParser):
             "in_camp",
             "in_house",
             "in_cave",
+            "in_room",
+            "in_ruins",
             "save_npc_active",
         ],
         "book_bottom": ["book_read_active"],

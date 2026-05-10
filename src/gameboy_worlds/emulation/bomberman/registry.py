@@ -40,6 +40,8 @@ from gameboy_worlds.emulation.bomberman.trackers import (
     BombermanQuestSwitchActivatedTestTracker,
     BombermanQuestEnterCampTestTracker,
     BombermanQuestEnterCaveTestTracker,
+    BombermanQuestEnterRoomTestTracker,
+    BombermanQuestEnterRuinsTestTracker,
     BombermanQuestEnterHouseTestTracker,
     BombermanQuestGameOverTestTracker,
     BombermanQuestBookReadTestTracker,
@@ -116,6 +118,8 @@ AVAILABLE_STATE_TRACKERS: Dict[str, Dict[str, Type[StateTracker]]] = {
 
         "enter_camp_test": BombermanQuestEnterCampTestTracker,
         "enter_cave_test": BombermanQuestEnterCaveTestTracker,
+        "enter_room_test": BombermanQuestEnterRoomTestTracker,
+        "enter_ruins_test": BombermanQuestEnterRuinsTestTracker,
         "enter_house_test": BombermanQuestEnterHouseTestTracker,
         "book_read_test": BombermanQuestBookReadTestTracker,
     },

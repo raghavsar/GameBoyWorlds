@@ -226,6 +226,18 @@ class EnterCaveTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
     _TERMINATION_TARGET_NAME = "in_cave"
 
 
+class EnterRoomTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BombermanQuestParser
+    _TERMINATION_NAMED_REGION = "zone_background"
+    _TERMINATION_TARGET_NAME = "in_room"
+
+
+class EnterRuinsTerminateMetric(RegionMatchTerminationMetric, TerminationMetric):
+    REQUIRED_PARSER = BombermanQuestParser
+    _TERMINATION_NAMED_REGION = "zone_background"
+    _TERMINATION_TARGET_NAME = "in_ruins"
+
+
 class ButtonRegionChangedTerminateMetric(RegionChangedTerminationMetric, TerminationMetric):
     REQUIRED_PARSER = BombermanQuestParser
     _CHANGED_NAMED_REGION = "button_region"
